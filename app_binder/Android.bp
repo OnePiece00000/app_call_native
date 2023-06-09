@@ -1,0 +1,61 @@
+cc_library_static{
+    name:"libaidltest",
+    local_include_dirs:[
+        "include"
+    ],
+    aidl:{
+        local_include_dirs:["aidl"],
+        include_dirs:[
+            "frameworks/native/aidl/binder"
+        ],
+        export_aidl_headers:true,
+    },
+
+    srcs:[
+        "FileInfo.cpp",
+        ":libfile_aidl"
+    ],
+
+    shared_libs:[
+        "libbinder",
+        "libutils",
+    ],
+}
+
+filegroup{
+    name:"libfile_aidl",
+    srcs:[
+        "aidl/com/hht/FileInfo.aidl",
+        "aidl/com/hht/IFileInfoCallback.aidl",
+        "aidl/com/hht/IGetFileInfo.aidl"
+    ],
+    path:"aidl",
+}
+
+cc_binary {
+    name: "fileservice2",
+    srcs: [
+        "main.cpp",
+        "GetFileInfo.cpp",
+    ],
+ 
+    cflags: [
+        "-Werror",
+        "-Wno-error=deprecated-declarations",
+        "-Wall",
+        "-Wformat-security",
+        "-Wno-unused-parameter",
+    ],
+ 
+    shared_libs: [
+        "libbinder",
+        "libcutils",
+        "liblog",
+        "libutils",
+        "libbase",
+    ],
+
+    static_libs:[
+         "libaidltest",
+    ]
+}
