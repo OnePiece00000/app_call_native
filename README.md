@@ -1,0 +1,2 @@
+编译app_binder模块需要在app_binder目录下新建一个include目录
+测试client和server通信，执行 setenforce 0 关闭SElinux来调试
